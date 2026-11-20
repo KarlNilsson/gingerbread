@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="sv">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Pepparkakstävlingen</title>
+    <style>
+      :root {
+        --bg: #2a1a12;
+        --panel: #3a2519;
+        --text: #fbefe2;
+        --muted: #c9a98c;
+        --bar: #c8743a;
+        --bar-leader: #e9b04a;
+        --track: #4a3022;
+        --icing: #fffaf3;
+        --warn: #ff8a7a;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        margin: 0;
+        height: 100%;
+      }
+      body {
+        background: radial-gradient(ellipse at top, #3d2619 0%, var(--bg) 70%);
+        color: var(--text);
+        font-family: "Segoe UI", system-ui, sans-serif;
+        display: flex;
+        flex-direction: column;
+        padding: 4vh 5vw;
+        overflow: hidden;
+      }
+      header {
+        text-align: center;
+        margin-bottom: 4vh;
+      }
+      h1 {
+        margin: 0;
+        font-size: clamp(2rem, 5vw, 5rem);
+        color: var(--icing);
+        letter-spacing: 0.02em;
+      }
+      #question {
+        margin: 1vh 0 0;
+        font-size: clamp(1.2rem, 2.6vw, 2.6rem);
+        color: var(--muted);
+      }
+      #bars {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        gap: 2.5vh;
+      }
+      .row {
+        display: grid;
+        grid-template-columns: auto minmax(6ch, 14vw) 1fr;
+        align-items: center;
+        gap: 2vw;
+        font-size: clamp(1.2rem, 3vw, 3.2rem);
+      }
+      .thumb {
+        width: 12vh;
+        height: 12vh;
+        object-fit: cover;
+        border-radius: 1.5vh;
+        border: 0.4vh solid var(--track);
+        transition: border-color 0.4s;
+      }
+      .leader .thumb {
+        border-color: var(--bar-leader);
+      }
+      .label {
+        font-weight: 600;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+      .track {
+        height: 1.4em;
+        background: var(--track);
+        border-radius: 0.7em;
+        overflow: hidden;
+      }
+      .fill {
+        height: 100%;
+        width: 0;
+        background: var(--bar);
+        border-radius: 0.7em;
+        transition:
+          width 0.8s cubic-bezier(0.2, 0.8, 0.2, 1),
+          background 0.4s;
+      }
+      .leader .fill {
+        background: var(--bar-leader);
+      }
+      .leader .label::after {
+        content: " 👑";
+      }
+      .count {
+        display: none;
+        text-align: right;
+        font-weight: 700;
+        font-variant-numeric: tabular-nums;
+      }
+      .bump .count {
+        animation: bump 0.8s ease-out;
+      }
+      @keyframes bump {
+        0% {
+          transform: scale(1.6);
+          color: var(--bar-leader);
+        }
+        100% {
+          transform: scale(1);
+        }
+      }
+      footer {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 3vh;
+        font-size: clamp(0.9rem, 1.6vw, 1.6rem);
+        color: var(--muted);
+      }
+      #total {
+        color: var(--icing);
+        font-weight: 600;
+      }
+      #status.stale {
+        color: var(--warn);
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1 id="title">Laddar…</h1>
+      <p id="question"></p>
+    </header>
+    <main id="bars"></main>
+    <footer>
+      <span id="total"></span>
+      <span id="status"></span>
+    </footer>
+    <script src="config.js"></script>
+    <script src="app.js"></script>
+  </body>
+</html>
